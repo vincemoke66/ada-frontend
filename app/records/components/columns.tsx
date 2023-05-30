@@ -16,7 +16,7 @@ import { DataTableColumnHeader } from "./data-table-column-header"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Key = {
+export type Attendance = {
   id: string
   building: string
   time: Date
@@ -24,7 +24,7 @@ export type Key = {
   subject: string
 }
 
-export const columns: ColumnDef<Key>[] = [
+export const columns: ColumnDef<Attendance>[] = [
   {
     accessorKey: "time",
     header: ({ column }) => (

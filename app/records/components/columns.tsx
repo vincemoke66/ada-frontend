@@ -1,7 +1,13 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, Ghost, MoreHorizontal } from "lucide-react"
+import {
+  ArrowUpDown,
+  CalendarClock,
+  Ghost,
+  MoreHorizontal,
+  User,
+} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
@@ -12,39 +18,97 @@ import { DataTableColumnHeader } from "./data-table-column-header"
 // You can use a Zod schema here if you want.
 export type Key = {
   id: string
-  room: string
   building: string
-  status: "available" | "borrowed"
-  floor: number
+  time: Date
+  studentName: string
+  subject: string
 }
 
 export const columns: ColumnDef<Key>[] = [
   {
-    accessorKey: "status",
+    accessorKey: "time",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Time" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      )
+      const datetimestruct = {
+        value: "",
+        label: "",
+        icon: CalendarClock,
+      }
 
-      if (!status) {
+      const datetime = datetimestruct
+
+      const rawDateTime: Date = row.getValue("time")
+
+      const stringDate = rawDateTime.toLocaleDateString()
+      const stringTime = rawDateTime.toLocaleTimeString()
+
+      datetime.value = stringDate + " " + stringTime
+      datetime.label = stringDate + " " + stringTime
+
+      if (!datetime) {
         return null
       }
 
       return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+        <div className="flex items-center">
+          {datetime.icon && (
+            <datetime.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span>{status.label}</span>
+          <span>{datetime.label}</span>
         </div>
       )
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
+  },
+  {
+    accessorKey: "student",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Student Name" />
+    ),
+    cell: ({ row }) => {
+      const studentStruct = {
+        value: "",
+        label: "",
+        icon: User,
+      }
+
+      const student = studentStruct
+
+      student.value = row.getValue("student")
+      student.label = row.getValue("student")
+
+      if (!student) {
+        return null
+      }
+
+      return (
+        <div className="flex  items-center">
+          {student.icon && (
+            <student.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+          )}
+          <span>{student.label}</span>
+        </div>
+      )
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
+    accessorKey: "section",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Section" />
+    ),
+  },
+  {
+    accessorKey: "course",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Course" />
+    ),
   },
   {
     accessorKey: "room",
@@ -53,57 +117,9 @@ export const columns: ColumnDef<Key>[] = [
     ),
   },
   {
-    accessorKey: "building",
+    accessorKey: "subject",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Building" />
+      <DataTableColumnHeader column={column} title="Subject" />
     ),
-    cell: ({ row }) => {
-      const building = buildings.find(
-        (building) => building.value === row.getValue("building")
-      )
-
-      if (!building) {
-        return null
-      }
-
-      return (
-        <div className="flex items-center">
-          {building.icon && (
-            <building.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{building.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
-  },
-  {
-    accessorKey: "floor",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Floor" />
-    ),
-    cell: ({ row }) => {
-      const floor = floors.find(
-        (floor) => floor.value === row.getValue("floor")
-      )
-
-      if (!floor) {
-        return null
-      }
-
-      return (
-        <div className="flex items-center">
-          {floor.icon && (
-            <floor.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{floor.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
   },
 ]

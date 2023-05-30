@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
+  name: "ADA",
   description:
     "Your Reliable Partner for Digital Attendance Solutions.",
   mainNav: [
@@ -16,6 +16,7 @@ export const siteConfig = {
   ],
   links: {
     facebook: "https://web.facebook.com/profile.php?id=100092740671939",
+    docs: "https://github.com/vincemoke66/ada-frontend",
     github: "https://github.com/vincemoke66/ada-frontend",
   },
 }

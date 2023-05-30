@@ -44,7 +44,7 @@ export default function IndexPage() {
         </div>
       </div>
       <h2 className="text-2xl font-bold leading-tight tracking-tighter sm:text-2xl md:text-4xl lg:text-5xl text-center">
-        How does Keyper work?
+        How does ADA work?
       </h2>
       <div className="grid items-center place-content-center">
         <img

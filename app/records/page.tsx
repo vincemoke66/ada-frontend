@@ -19,8 +19,6 @@ async function getData(): Promise<Attendance[]> {
         }))
       : []
 
-  console.log(formattedData)
-
   return formattedData
 }
 
